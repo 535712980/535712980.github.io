@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的网址导航</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #e0e6ed;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-size: 28px;
+            color: #2c3e50;
+            margin-left: 10px;
+        }
+        
+        .logo i {
+            font-size: 32px;
+            color: #3498db;
+        }
+        
+        .search-bar {
+            display: flex;
+            width: 50%;
+        }
+        
+        .search-bar input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #e0e6ed;
+            border-radius: 8px 0 0 8px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        .search-bar input:focus {
+            border-color: #3498db;
+        }
+        
+        .search-bar button {
+            padding: 12px 20px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 0 8px 8px 0;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        
+        .search-bar button:hover {
+            background: #2980b9;
+        }
+        
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .category-btn {
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid #e0e6ed;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .category-btn:hover, .category-btn.active {
+            background: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .category {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .category:hover {
+            transform: translateY(-5px);
+        }
+        
+        .category-header {
+            padding: 20px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .category-header h2 {
+            font-size: 20px;
+        }
+        
+        .category-content {
+            padding: 20px;
+        }
+        
+        .website {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f4f8;
+        }
+        
+        .website:last-child {
+            border-bottom: none;
+        }
+        
+        .favicon {
+            width: 20px;
+            height: 20px;
+            margin-right: 15px;
+            background: #e0e6ed;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+        
+        .website a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .website a:hover {
+            color: #3498db;
+        }
+        
+        .add-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-top: 30px;
+            background: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .add-btn:hover {
+            background: #27ae60;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+            color: #7f8c8d;
+            border-top: 1px solid #e0e6ed;
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .search-bar {
+                width: 100%;
+            }
+            
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-compass"></i>
+                <h1>我的网址导航</h1>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="搜索网址或关键词...">
+                <button><i class="fas fa-search"></i> 搜索</button>
+            </div>
+        </header>
+        
+        <div class="categories">
+            <button class="category-btn active">全部</button>
+            <button class="category-btn">常用</button>
+            <button class="category-btn">工作</button>
+            <button class="category-btn">学习</button>
+            <button class="category-btn">娱乐</button>
+            <button class="category-btn">购物</button>
+            <button class="category-btn">社交</button>
+        </div>
+        
+        <div class="main-content">
+            <!-- 常用网站 -->
+            <div class="category">
+                <div class="category-header" style="background: #3498db;">
+                    <h2>常用网站</h2>
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="category-content">
+                    <div class="website">
+                        <div class="favicon">G</div>
+                        <a href="https://www.google.com" target="_blank">Google 搜索</a>
+                    </div>
+                    <div class="website">
+                        <div class="favicon">B</div>
+                        <a href="https://www.baidu.com" target="_blank">百度</a>
+                    </div>
+                    <div class="website">
+                        <div class="favicon">G</div>
+                        <a href="https://github.com" target="_blank">GitHub</a>
+                    </div>
+                    <div class="website">
+                        <div class="favicon">W</div>
+                        <a href="https://zh.wikipedia.org" target="_blank">维基百科</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 工作工具 -->
+            <div class="category">
+                <div class="category-header" style="background: #9b59b6;">
+                    <h2>工作工具</h2>
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <div class="category-content">
+                    <div class="website">
+                        <div class="favicon">N</div>
+                        <a href="https://www.notion.so" target="_blank">Notion</a>
+                    </div>
+                    <div class="website">
+                        <div class="favicon">T</div>
+                        <a href="https://www.trello.com" target="_blank">Trello</a>
+                    </div>
+                    <div class="website">
+                        <div class="favicon">S</div>
+                        <a href="https://slack.com" target="_blank">Slack</a>
+                    </div>
+                    <div class="website">
+                        <div class="favicon">Z</div>
+                        <a href="https://www.zoom.us" target="_blank">Zoom</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 学习资源 -->
+            <div class="category">
+                <div class="category-header" style="background: #2ecc71;">
+                    <h2>学习资源</h2>
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="category-content">
+                    <div class="website">
+                        <div class="favicon">C</div>
+                        <a href="https://www.coursera.org" target="_blank">Coursera</a>
+                    </div>
+                    <div class="website">
+                        <div class="favicon">K</div>
+                        <a href="https://www.khanacademy.org" target="_blank">可汗学院</a>
+                    </div>
+                    <div class="website">
+                        <div class="favicon">T</div>
+                        <a href="https://www.ted.com" target="_blank">TED演讲</a>
+                    </div>
+                    <div class="website">
+                        <div class="favicon">D</div>
+                        <a href="https://www.duolingo.com" target="_blank">多邻国</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 娱乐休闲 -->
+            <div class="category">
+                <div class="category-header" style="background: #e74c3c;">
+                    <h2>娱乐休闲</h2>
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <div class="category-content">
+                    <div class="website">
+                        <div class="favicon">Y</div>
+                        <a href="https://www.youtube.com" target="_blank">YouTube</a>
+                    </div>
+                    <div class="website">
+                        <div class="favicon">N</div>
+                        <a href="https://www.netflix.com" target="_blank">Netflix</a>
+                    </div>
+                    <div class="website">
+                        <div class="favicon">S</div>
+                        <a href="https://open.spotify.com" target="_blank">Spotify</a>
+                    </div>
+                    <div class="website">
+                        <div class="favicon">T</div>
+                        <a href="https://www.twitch.tv" target="_blank">Twitch</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 购物网站 -->
+            <div class="category">
+                <div class="category-header" style="background: #f39c12;">
+                    <h2>购物网站</h2>
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="category-content">
+                    <div class="website">
+                        <div class="favicon">A</div>
+                        <a href="https://www.amazon.com" target="_blank">亚马逊</a>
+                    </div>
+                    <div class="website">
+                        <div class="favicon">T</div>
+                        <a href="https://www.taobao.com" target="_blank">淘宝</a>
+                    </div>
+                    <div class="website">
+                        <div class="favicon">J</div>
+                        <a href="https://www.jd.com" target="_blank">京东</a>
+                    </div>
+                    <div class="website">
+                        <div class="favicon">E</div>
+                        <a href="https://www.ebay.com" target="_blank">eBay</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 社交媒体 -->
+            <div class="category">
+                <div class="category-header" style="background: #1abc9c;">
+                    <h2>社交媒体</h2>
+                    <i class="fas fa-comments"></i>
+                </div>
+                <div class="category-content">
+                    <div class="website">
+                        <div class="favicon">F</div>
+                        <a href="https://www.facebook.com" target="_blank">Facebook</a>
+                    </div>
+                    <div class="website">
+                        <div class="favicon">T</div>
+                        <a href="https://twitter.com" target="_blank">Twitter</a>
+                    </div>
+                    <div class="website">
+                        <div class="favicon">I</div>
+                        <a href="https://www.instagram.com" target="_blank">Instagram</a>
+                    </div>
+                    <div class="website">
+                        <div class="favicon">W</div>
+                        <a href="https://www.weibo.com" target="_blank">微博</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <button class="add-btn"><i class="fas fa-plus"></i> 添加新网址</button>
+        
+        <footer>
+            <p>© 2023 我的网址导航 - 整理你的网络资源</p>
+        </footer>
+    </div>
+
+    <script>
+        // 简单的分类过滤功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            const categories = document.querySelectorAll('.category');
+            
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // 移除所有按钮的active类
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    // 给当前点击的按钮添加active类
+                    this.classList.add('active');
+                    
+                    const filter = this.textContent;
+                    
+                    categories.forEach(category => {
+                        if (filter === '全部') {
+                            category.style.display = 'block';
+                        } else {
+                            const categoryTitle = category.querySelector('h2').textContent;
+                            if (categoryTitle.includes(filter)) {
+                                category.style.display = 'block';
+                            } else {
+                                category.style.display = 'none';
+                            }
+                        }
+                    });
+                });
+            });
+            
+            // 搜索功能
+            const searchInput = document.querySelector('.search-bar input');
+            const searchButton = document.querySelector('.search-bar button');
+            
+            searchButton.addEventListener('click', performSearch);
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+            
+            function performSearch() {
+                const searchTerm = searchInput.value.toLowerCase();
+                
+                categories.forEach(category => {
+                    const websites = category.querySelectorAll('.website a');
+                    let hasMatch = false;
+                    
+                    websites.forEach(website => {
+                        const websiteText = website.textContent.toLowerCase();
+                        if (websiteText.includes(searchTerm)) {
+                            hasMatch = true;
+                            website.parentElement.style.display = 'flex';
+                        } else {
+                            website.parentElement.style.display = 'none';
+                        }
+                    });
+                    
+                    // 如果该分类有匹配的网址，显示整个分类
+                    if (hasMatch) {
+                        category.style.display = 'block';
+                    } else {
+                        category.style.display = 'none';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
