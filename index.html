@@ -218,30 +218,27 @@
             }
         }
     </style>
-</head>
-<body>
-    <div class="container">
-        <header>
+     <header style="display: flex; flex-direction: column; align-items: flex-start; gap: 12px; padding: 10px 0;">
+    <!-- Logo 标题：单独一行，不会被挤 -->
     <div class="logo">
         <i class="fas fa-compass"></i>
         <h1>老五修电脑</h1>
     </div>
 
-    <!-- 原有站内搜索框（不动） -->
+    <!-- 第一行：站内搜索框，宽度固定，不超出去 -->
     <div class="search-bar">
-        <input type="text" placeholder="搜索网址或关键词...">
+        <input style="width: 220px;" type="text" placeholder="搜索网址或关键词...">
         <button><i class="fas fa-search"></i> 搜索</button>
     </div>
 
-    <!-- 替换成这个：下方全网搜索框 -->
-    <div class="search-bar" style="margin-top: 10px;">
+    <!-- 第二行：全网搜索框，在下面，和上面完全分开 -->
+    <div class="search-bar">
         <form action="https://www.baidu.com/s" method="get" target="_blank">
-            <input type="text" name="wd" placeholder="全网搜索关键词">
+            <input style="width: 220px;" type="text" name="wd" placeholder="全网搜索关键词">
             <button type="submit"><i class="fas fa-search"></i> 全网搜索</button>
         </form>
     </div>
 </header>
-            
         </header>
         
         <div class="categories">
